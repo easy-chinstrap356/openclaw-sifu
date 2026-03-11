@@ -541,7 +541,7 @@ func refreshGatewayServiceIfLoaded(emit func(string, string, string)) {
 	// Run it quietly; if it fails (e.g. access denied), just skip.
 	installErr := runQuietCommand("openclaw", "gateway", "install", "--force")
 	if installErr != nil {
-		emit("gateway", "skip", "Gateway service refresh skipped (requires admin privileges)")
+		emit("gateway", "skip", "Gateway service refresh deferred to the completion screen (requires admin privileges)")
 		return
 	}
 

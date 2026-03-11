@@ -6,6 +6,6 @@ export function GetBootstrapPayload():Promise<main.BootstrapPayload>;
 
 export function LaunchOpenClaw():Promise<void>;
 
-export function OpenExternalTarget(arg1:string):Promise<void>;
-
 export function RunNativeInstaller(arg1:main.InstallerConfig):Promise<main.InstallerResult>;
+
+export function RunPostInstallActions():Promise<main.PostInstallActionResult>;

@@ -10,10 +10,10 @@ export function LaunchOpenClaw() {
   return window['go']['main']['App']['LaunchOpenClaw']();
 }
 
-export function OpenExternalTarget(arg1) {
-  return window['go']['main']['App']['OpenExternalTarget'](arg1);
-}
-
 export function RunNativeInstaller(arg1) {
   return window['go']['main']['App']['RunNativeInstaller'](arg1);
+}
+
+export function RunPostInstallActions() {
+  return window['go']['main']['App']['RunPostInstallActions']();
 }

@@ -4,11 +4,11 @@ import {
   GetBootstrapPayload,
   LaunchOpenClaw,
   RunNativeInstaller,
+  RunPostInstallActions,
 } from '../wailsjs/go/main/App';
 import {
   EventsOn,
   Quit,
-  WindowCenter,
   WindowIsMaximised,
   WindowMinimise,
   WindowToggleMaximise,
@@ -17,23 +17,11 @@ import { Minus, Square, Copy, X } from 'lucide-react';
 
 type Environment = {
   hostname: string;
-  username: string;
   platform: string;
   architecture: string;
-  goVersion: string;
-  workingDir: string;
-  executablePath: string;
-  tempDir: string;
-  powerShellPath: string;
-  webView2State: string;
 };
 
 type BootstrapPayload = {
-  appName: string;
-  version: string;
-  modeLabel: string;
-  summary: string;
-  bootTime: string;
   environment: Environment;
 };
 
@@ -43,6 +31,13 @@ type InstallerStepUpdate = {
   message: string;
 };
 
+type PostInstallActionResult = {
+  success: boolean;
+  message: string;
+  error?: string;
+  cancelled: boolean;
+};
+
 export default function App() {
   const [payload, setPayload] = useState<BootstrapPayload | null>(null);
   const [loading, setLoading] = useState(true);
@@ -50,6 +45,13 @@ export default function App() {
   const [isMaximised, setIsMaximised] = useState(false);
   const [appPhase, setAppPhase] = useState<'home' | 'installing' | 'failed' | 'success'>('home');
   const [installerSteps, setInstallerSteps] = useState<InstallerStepUpdate[]>([]);
+  const [enableSystemIntegration, setEnableSystemIntegration] = useState(true);
+  const [postInstallBusy, setPostInstallBusy] = useState(false);
+  const [postInstallMessage, setPostInstallMessage] = useState<{
+    tone: 'info' | 'error';
+    text: string;
+  } | null>(null);
+  const supportsPostInstallElevation = payload?.environment.platform === 'windows';
 
   async function syncWindowState() {
     try {
@@ -101,6 +103,8 @@ export default function App() {
     setAppPhase('installing');
     setError('');
     setInstallerSteps([]);
+    setEnableSystemIntegration(true);
+    setPostInstallMessage(null);
 
     try {
       const result = await RunNativeInstaller({
@@ -125,6 +129,45 @@ export default function App() {
     } catch (err) {
       setError(err instanceof Error ? err.message : '启动安装程序失败。');
       setAppPhase('failed');
+    }
+  }
+
+  async function openOpenClawAndQuit() {
+    await LaunchOpenClaw();
+    window.setTimeout(() => Quit(), 2000);
+  }
+
+  async function finishInstall() {
+    if (postInstallBusy) {
+      return;
+    }
+
+    setPostInstallBusy(true);
+    setPostInstallMessage(null);
+
+    try {
+      if (!supportsPostInstallElevation || !enableSystemIntegration) {
+        await openOpenClawAndQuit();
+        return;
+      }
+
+      const result = await RunPostInstallActions() as unknown as PostInstallActionResult;
+      if (!result.success) {
+        setPostInstallMessage({
+          tone: result.cancelled ? 'info' : 'error',
+          text: result.message || result.error || '管理员授权未完成，系统集成未启用。',
+        });
+        return;
+      }
+
+      await openOpenClawAndQuit();
+    } catch (err) {
+      setPostInstallMessage({
+        tone: 'error',
+        text: err instanceof Error ? err.message : '执行安装后的授权步骤失败。',
+      });
+    } finally {
+      setPostInstallBusy(false);
     }
   }
 
@@ -335,19 +378,61 @@ export default function App() {
                   现在打开 OpenClaw 开始使用吧！
                 </p>
 
+                {supportsPostInstallElevation && (
+                  <label className="w-full text-left bg-slate-50 border border-slate-200 rounded-2xl p-4 mb-6 animate-fade-in-up animate-delay-300 cursor-pointer">
+                    <div className="flex items-start gap-3">
+                      <input
+                        type="checkbox"
+                        className="mt-1 h-4 w-4 rounded border-slate-300 text-orange-500 focus:ring-orange-500"
+                        checked={enableSystemIntegration}
+                        onChange={(event) => setEnableSystemIntegration(event.target.checked)}
+                        disabled={postInstallBusy}
+                      />
+                      <div>
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-sm font-bold text-slate-800">启用后台服务和计划任务</span>
+                          <span className="text-[10px] font-bold tracking-wider text-orange-600 bg-orange-100 rounded-full px-2 py-0.5">
+                            推荐
+                          </span>
+                        </div>
+                        <p className="text-sm text-slate-500 leading-relaxed">
+                          需要管理员授权执行 OpenClaw 的系统集成配置与定时任务等。
+                        </p>
+                      </div>
+                    </div>
+                  </label>
+                )}
+
+                {postInstallMessage && (
+                  <div className={`w-full rounded-2xl p-4 mb-6 text-left animate-fade-in-up ${postInstallMessage.tone === 'error'
+                    ? 'bg-rose-50 border border-rose-200 text-rose-700'
+                    : 'bg-amber-50 border border-amber-200 text-amber-700'
+                    }`}>
+                    <div className="text-xs font-bold uppercase tracking-wider mb-1">
+                      {postInstallMessage.tone === 'error' ? '授权失败' : '授权已取消'}
+                    </div>
+                    <div className="text-sm leading-relaxed">{postInstallMessage.text}</div>
+                  </div>
+                )}
+
                 <button
-                  className="px-10 py-4 rounded-2xl font-bold text-lg text-white bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 shadow-xl shadow-emerald-500/25 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-emerald-500/30 active:translate-y-0 animate-fade-in-up animate-delay-300"
-                  onClick={() => {
-                    void LaunchOpenClaw();
-                    setTimeout(() => Quit(), 2000);
-                  }}
+                  className="px-10 py-4 rounded-2xl font-bold text-lg text-white bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 shadow-xl shadow-emerald-500/25 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-emerald-500/30 active:translate-y-0 animate-fade-in-up animate-delay-400 disabled:opacity-70 disabled:hover:translate-y-0"
+                  onClick={() => void finishInstall()}
+                  disabled={postInstallBusy}
                 >
-                  打开 OpenClaw
+                  {postInstallBusy
+                    ? supportsPostInstallElevation && enableSystemIntegration
+                      ? '正在请求管理员授权...'
+                      : '正在打开 OpenClaw...'
+                    : supportsPostInstallElevation && enableSystemIntegration
+                      ? '授权并打开 OpenClaw'
+                      : '打开 OpenClaw'}
                 </button>
 
                 <button
-                  className="mt-4 text-sm text-slate-400 hover:text-slate-600 transition-colors animate-fade-in-up animate-delay-400"
+                  className="mt-4 text-sm text-slate-400 hover:text-slate-600 transition-colors animate-fade-in-up animate-delay-500"
                   onClick={() => Quit()}
+                  disabled={postInstallBusy}
                 >
                   关闭安装程序
                 </button>
