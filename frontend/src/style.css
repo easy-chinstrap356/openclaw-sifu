@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .drag-zone {
+    --wails-draggable: drag;
+  }
+
+  .no-drag {
+    --wails-draggable: no-drag;
+  }
+}
+
+html,
+body,
+#root {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft YaHei", sans-serif;
+  color: #1e293b;
+  background-color: transparent;
+}

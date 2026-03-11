@@ -1,0 +1,13 @@
+{
+  "$schema": "https://wails.io/schemas/config.v2.json",
+  "name": "openclaw-sifu",
+  "outputfilename": "openclaw-sifu",
+  "frontend:install": "npm install",
+  "frontend:build": "npm run build",
+  "frontend:dev:watcher": "npm run dev",
+  "frontend:dev:serverUrl": "auto",
+  "author": {
+    "name": "fuzikang",
+    "email": "fuzikang00@foxmail.com"
+  }
+}

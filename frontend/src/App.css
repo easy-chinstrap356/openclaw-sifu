@@ -1,0 +1,175 @@
+.compact-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.9) transparent;
+}
+
+.compact-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.compact-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.compact-scroll::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.9);
+  border-radius: 999px;
+}
+
+/* ============================================
+   Installer carousel / slide transition system
+   ============================================ */
+
+.installer-viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.installer-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.installer-slide.slide-active {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.installer-slide.slide-left {
+  transform: translateX(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.installer-slide.slide-right {
+  transform: translateX(100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ============================================
+   Phase step card animations
+   ============================================ */
+
+.phase-card {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.phase-card.phase-active {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.phase-card.phase-done {
+  transform: scale(0.97);
+  opacity: 0.5;
+}
+
+.phase-card.phase-pending {
+  transform: scale(0.97);
+  opacity: 0.35;
+}
+
+/* Progress ring animation */
+@keyframes progress-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.progress-spinner {
+  animation: progress-spin 1.2s linear infinite;
+}
+
+/* ============================================
+   Entrance animations
+   ============================================ */
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-delay-100 {
+  animation-delay: 0.1s;
+  opacity: 0;
+}
+
+.animate-delay-200 {
+  animation-delay: 0.2s;
+  opacity: 0;
+}
+
+.animate-delay-300 {
+  animation-delay: 0.3s;
+  opacity: 0;
+}
+
+.animate-delay-400 {
+  animation-delay: 0.4s;
+  opacity: 0;
+}
+
+.animate-delay-500 {
+  animation-delay: 0.5s;
+  opacity: 0;
+}
+
+/* Subtle shimmer for active phase icon */
+@keyframes shimmer-pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 24px 4px rgba(249, 115, 22, 0.15);
+  }
+}
+
+.shimmer-active {
+  animation: shimmer-pulse 2s ease-in-out infinite;
+}
+
+/* Success confetti-like sparkle */
+@keyframes sparkle {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.2) rotate(180deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1) rotate(360deg);
+    opacity: 1;
+  }
+}
+
+.animate-sparkle {
+  animation: sparkle 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
