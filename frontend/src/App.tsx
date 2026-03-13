@@ -54,6 +54,7 @@ export default function App() {
   const [postInstallMessage, setPostInstallMessage] = useState<{
     tone: 'info' | 'error';
     text: string;
+    error?: string;
   } | null>(null);
   const supportsPostInstallElevation = payload?.environment.platform === 'windows';
 
@@ -187,6 +188,7 @@ export default function App() {
         setPostInstallMessage({
           tone: result.cancelled ? 'info' : 'error',
           text: result.message || result.error || '管理员授权未完成，系统集成未启用。',
+          error: result.error,
         });
         return;
       }
@@ -477,6 +479,14 @@ export default function App() {
                       {postInstallMessage.tone === 'error' ? '授权失败' : '授权已取消'}
                     </div>
                     <div className="text-sm leading-relaxed">{postInstallMessage.text}</div>
+                    {postInstallMessage.error && (
+                      <div className={`mt-3 p-3 rounded-xl text-xs font-mono leading-relaxed break-all whitespace-pre-wrap ${postInstallMessage.tone === 'error'
+                        ? 'bg-rose-100/60 text-rose-600'
+                        : 'bg-amber-100/60 text-amber-600'
+                        }`}>
+                        <span className="font-bold font-sans">错误详情：</span>{postInstallMessage.error}
+                      </div>
+                    )}
                   </div>
                 )}
 
